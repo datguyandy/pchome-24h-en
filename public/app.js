@@ -1,25 +1,54 @@
+// --- Icons (inline, stroke-based, 24px grid) ---
+const ICON_PATHS = {
+  check: '<path d="M5 12.5 10 17.5 19 7"/>',
+  copy: '<rect x="8.5" y="8.5" width="12" height="12" rx="2.5"/><path d="M15.5 8.5V6a2.5 2.5 0 0 0-2.5-2.5H6A2.5 2.5 0 0 0 3.5 6v7A2.5 2.5 0 0 0 6 15.5h2.5"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  heart: '<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8z"/>',
+  external: '<path d="M7 17 17 7"/><path d="M8 7h9v9"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/>',
+  alert: '<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5"/><path d="M12 16.2v.3"/>',
+  bolt: '<path d="M13 2 4.5 13.5H12L11 22l8.5-11.5H12L13 2z"/>',
+  home: '<path d="M3.5 11 12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/>',
+  store: '<path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5a2.7 2.7 0 0 0 5.3 0 2.7 2.7 0 0 0 5.4 0 2.7 2.7 0 0 0 5.3 0"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/>',
+  receipt: '<path d="M6 3h12v18l-2.5-1.6L13 21l-2-1.6L8.5 21 6 19.4z"/><path d="M9 8h6M9 12h6M9 16h3"/>',
+  lock: '<rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>',
+  bulb: '<path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5 1.1 1.3 1.1 2.2h5c0-.9.5-1.7 1.1-2.2A6 6 0 0 0 12 3z"/>',
+  star: '<path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
+  x: '<path d="m7 7 10 10M17 7 7 17"/>',
+};
+
+function icon(name, cls = '') {
+  return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON_PATHS[name] || ''}</svg>`;
+}
+
 const QUICK_CATEGORIES = [
-  { en: 'Dehumidifier', zh: '除濕機' },
-  { en: 'USB-C GaN Charger', zh: '氮化鎵充電器' },
-  { en: 'Power Bank', zh: '行動電源' },
-  { en: 'Extension Cord', zh: '延長線' },
-  { en: 'Air Purifier', zh: '空氣清淨機' },
-  { en: 'Wireless Mouse', zh: '無線滑鼠' },
-  { en: 'Electric Fan', zh: '電風扇' },
-  { en: 'Bed Sheets', zh: '床包組' },
-  { en: 'Protein Powder', zh: '乳清蛋白' },
-  { en: 'Toilet Paper', zh: '衛生紙' },
-  { en: 'Mosquito Repellent', zh: '防蚊液' },
-  { en: 'Water Filter', zh: '濾水壺' },
+  { en: 'Dehumidifier', zh: '除濕機', hue: 200, icon: '<path d="M12 3s6 6.2 6 10.5a6 6 0 0 1-12 0C6 9.2 12 3 12 3z"/><path d="M9.3 14.2A2.8 2.8 0 0 0 12 17"/>' },
+  { en: 'USB-C GaN Charger', zh: '氮化鎵充電器', hue: 42, icon: '<path d="M13 2 4.5 13.5H12L11 22l8.5-11.5H12L13 2z"/>' },
+  { en: 'Power Bank', zh: '行動電源', hue: 145, icon: '<rect x="2.5" y="7" width="17" height="10" rx="2.5"/><path d="M22 10.5v3"/><path d="M11.8 9.5 9.6 12.4h3l-2.2 3"/>' },
+  { en: 'Extension Cord', zh: '延長線', hue: 24, icon: '<path d="M9 2.5V7M15 2.5V7"/><path d="M6 7h12v4a6 6 0 0 1-12 0V7z"/><path d="M12 17v4.5"/>' },
+  { en: 'Air Purifier', zh: '空氣清淨機', hue: 186, icon: '<path d="M3 8h10.5a3 3 0 1 0-3-3"/><path d="M3 12h15.5a3 3 0 1 1-3 3"/><path d="M3 16h7"/>' },
+  { en: 'Wireless Mouse', zh: '無線滑鼠', hue: 255, icon: '<rect x="6" y="3" width="12" height="18" rx="6"/><path d="M12 7v3.5"/>' },
+  { en: 'Electric Fan', zh: '電風扇', hue: 210, icon: '<circle cx="12" cy="10.5" r="7.5"/><circle cx="12" cy="10.5" r="1.5"/><path d="M12 9V4.5M13.3 11.3l3.9 2.2M10.7 11.3l-3.9 2.2"/><path d="M12 18v3M8.5 21h7"/>' },
+  { en: 'Bed Sheets', zh: '床包組', hue: 280, icon: '<path d="M3 19V6"/><path d="M3 14.5h18V19"/><path d="M21 14.5V12a3 3 0 0 0-3-3h-7v5.5"/><circle cx="7" cy="11.2" r="1.8"/>' },
+  { en: 'Protein Powder', zh: '乳清蛋白', hue: 12, icon: '<path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/>' },
+  { en: 'Toilet Paper', zh: '衛生紙', hue: 330, icon: '<circle cx="8" cy="9" r="5"/><circle cx="8" cy="9" r="1.5"/><path d="M8 4h8.5a4 4 0 0 1 4 4v12.5h-7.5V14"/>' },
+  { en: 'Mosquito Repellent', zh: '防蚊液', hue: 95, icon: '<path d="M12 3 5 6v5c0 4.5 3 8.2 7 10 4-1.8 7-5.5 7-10V6l-7-3z"/><path d="m9 12 2 2 4-4"/>' },
+  { en: 'Water Filter', zh: '濾水壺', hue: 195, icon: '<path d="M6 4h11l-1 2.5V19a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4z"/><path d="M16 8.5h1.5A2.5 2.5 0 0 1 20 11v2.5a2.5 2.5 0 0 1-2.5 2.5H16"/><path d="M6 11.5h10"/>' },
 ];
 
 const VAULT_FIELDS = [
-  { key: 'name', label: 'Name for Delivery', zh: '收件人姓名', placeholder: 'e.g. 王小明 or John Smith (Chinese preferred)' },
-  { key: 'phone', label: 'Taiwan Mobile Number', zh: '手機號碼', placeholder: 'e.g. 0912345678' },
-  { key: 'postal', label: 'Postal Code (3+3 / 5 digits)', zh: '郵遞區號', placeholder: 'e.g. 106' },
-  { key: 'address', label: 'Traditional Chinese Address', zh: '中文收件地址', placeholder: 'e.g. 台北市大安區仁愛路四段...' },
-  { key: 'carrier', label: 'E-Invoice Barcode (載具)', zh: '手機條碼載具', placeholder: 'e.g. /ABC1234' },
+  { key: 'name', label: 'Recipient name', zh: '收件人姓名', placeholder: 'e.g. 王小明 or John Smith', autocomplete: 'name' },
+  { key: 'phone', label: 'Taiwan mobile', zh: '手機號碼', placeholder: 'e.g. 0912345678', type: 'tel', inputmode: 'tel', autocomplete: 'tel' },
+  { key: 'postal', label: 'Postal code', zh: '郵遞區號', placeholder: 'e.g. 106', inputmode: 'numeric', autocomplete: 'postal-code' },
+  { key: 'address', label: 'Address in Chinese', zh: '中文收件地址', placeholder: 'e.g. 台北市大安區仁愛路四段…' },
+  { key: 'carrier', label: 'Mobile barcode (載具)', zh: '手機條碼載具', placeholder: 'e.g. /ABC1234', autocapitalize: 'characters' },
   { key: 'store', label: 'Preferred 7-11 / FamilyMart', zh: '常用超商門市', placeholder: 'e.g. 7-11 敦南門市' },
+];
+
+const VAULT_GROUPS = [
+  { id: 'delivery', title: 'Home delivery', zh: '宅配收件', icon: 'home', fields: ['name', 'phone', 'postal', 'address'] },
+  { id: 'pickup', title: 'Store pickup', zh: '超商取貨', icon: 'store', fields: ['store'] },
+  { id: 'invoice', title: 'E-invoice', zh: '電子發票', icon: 'receipt', fields: ['carrier'] },
 ];
 
 const DELIVERY_PHRASES = [
@@ -30,24 +59,33 @@ const DELIVERY_PHRASES = [
   { en: 'Evening delivery after 6 PM preferred', zh: '請於晚上六點後配送，謝謝！' },
 ];
 
+const GLOSSARY_CATS = [
+  { id: 'all', label: 'All' },
+  { id: 'cart', label: 'Cart' },
+  { id: 'delivery', label: 'Delivery' },
+  { id: 'payment', label: 'Payment' },
+  { id: 'invoice', label: 'E-invoice' },
+  { id: 'orders', label: 'Orders' },
+];
+
 const GLOSSARY_ITEMS = [
-  { zh: '加入購物車', en: 'Add to Cart', tip: 'Adds the item to your PChome 24h shopping cart.' },
-  { zh: '立即購買 / 直接購買', en: 'Buy Now', tip: 'Skips cart browsing and jumps straight to checkout.' },
-  { zh: '貨到通知我 / 補貨中', en: 'Out of Stock', tip: 'Currently sold out. Tap to get an email when restocked.' },
-  { zh: '宅配', en: 'Home Delivery (24h)', tip: 'Fastest option. Requires a Traditional Chinese address.' },
-  { zh: '超商取貨 (7-11 / 全家)', en: 'Convenience Store Pickup', tip: 'Great if you have no building guard. Bring your ARC/passport matching the recipient name.' },
-  { zh: '信用卡一次付清', en: 'Credit Card (Full Payment)', tip: 'Choose this for normal credit/debit cards. Foreign cards may fail 3DS; try LINE Pay or Apple Pay if so.' },
-  { zh: '信用卡分期', en: 'Credit Card Installments', tip: 'Usually only works with Taiwanese-issued bank cards.' },
-  { zh: '貨到付款', en: 'Cash on Delivery (COD)', tip: 'Pay cash at your door or at the 7-11/FamilyMart counter.' },
-  { zh: '手機條碼載具', en: 'Mobile E-Invoice Barcode', tip: 'Your /XXXXXXX receipt lottery barcode. Saves paper and auto-checks Taiwan receipt lottery!' },
-  { zh: '個人電子發票', en: 'Personal E-Invoice', tip: 'Default option if you do not have a 載具 barcode yet (PChome holds it and emails you if you win).' },
-  { zh: '公司用發票 / 統一編號', en: 'Company Tax ID (統編)', tip: 'Only needed if expensing to a Taiwanese company.' },
-  { zh: '捐贈發票', en: 'Donate Receipt', tip: 'Donates your receipt lottery chance to charity.' },
-  { zh: '收件人資訊', en: 'Recipient Information', tip: 'Name, Taiwan mobile (09xx), and Traditional Chinese address.' },
-  { zh: '免運 / 運費', en: 'Free Shipping / Shipping Fee', tip: 'PChome 24h typically gives free shipping over NT$490.' },
-  { zh: '折價券', en: 'Coupon / Voucher', tip: 'Check this box during checkout to apply any active store coupons.' },
-  { zh: '查訂單', en: 'Order Tracking', tip: 'Check shipping progress or request a return/refund.' },
-  { zh: '申請退貨', en: 'Request Return', tip: 'Taiwan consumer law gives a 7-day return window on online purchases.' },
+  { cat: 'cart', zh: '加入購物車', en: 'Add to Cart', tip: 'Adds the item to your PChome 24h shopping cart.' },
+  { cat: 'cart', zh: '立即購買 / 直接購買', en: 'Buy Now', tip: 'Skips cart browsing and jumps straight to checkout.' },
+  { cat: 'cart', zh: '貨到通知我 / 補貨中', en: 'Out of Stock', tip: 'Currently sold out. Tap to get an email when restocked.' },
+  { cat: 'cart', zh: '折價券', en: 'Coupon / Voucher', tip: 'Check this box during checkout to apply any active store coupons.' },
+  { cat: 'delivery', zh: '宅配', en: 'Home Delivery (24h)', tip: 'Fastest option. Requires a Traditional Chinese address.' },
+  { cat: 'delivery', zh: '超商取貨 (7-11 / 全家)', en: 'Convenience Store Pickup', tip: 'Great if you have no building guard. Bring your ARC/passport matching the recipient name.' },
+  { cat: 'delivery', zh: '收件人資訊', en: 'Recipient Information', tip: 'Name, Taiwan mobile (09xx), and Traditional Chinese address.' },
+  { cat: 'delivery', zh: '免運 / 運費', en: 'Free Shipping / Shipping Fee', tip: 'PChome 24h typically gives free shipping over NT$490.' },
+  { cat: 'payment', zh: '信用卡一次付清', en: 'Credit Card (Full Payment)', tip: 'Choose this for normal credit/debit cards. Foreign cards may fail 3DS; try LINE Pay or Apple Pay if so.' },
+  { cat: 'payment', zh: '信用卡分期', en: 'Credit Card Installments', tip: 'Usually only works with Taiwanese-issued bank cards.' },
+  { cat: 'payment', zh: '貨到付款', en: 'Cash on Delivery (COD)', tip: 'Pay cash at your door or at the 7-11/FamilyMart counter.' },
+  { cat: 'invoice', zh: '手機條碼載具', en: 'Mobile E-Invoice Barcode', tip: 'Your /XXXXXXX receipt lottery barcode. Saves paper and auto-checks Taiwan receipt lottery!' },
+  { cat: 'invoice', zh: '個人電子發票', en: 'Personal E-Invoice', tip: 'Default option if you do not have a 載具 barcode yet (PChome holds it and emails you if you win).' },
+  { cat: 'invoice', zh: '公司用發票 / 統一編號', en: 'Company Tax ID (統編)', tip: 'Only needed if expensing to a Taiwanese company.' },
+  { cat: 'invoice', zh: '捐贈發票', en: 'Donate Receipt', tip: 'Donates your receipt lottery chance to charity.' },
+  { cat: 'orders', zh: '查訂單', en: 'Order Tracking', tip: 'Check shipping progress or request a return/refund.' },
+  { cat: 'orders', zh: '申請退貨', en: 'Request Return', tip: 'Taiwan consumer law gives a 7-day return window on online purchases.' },
 ];
 
 // Approximate exchange rates for quick mental math (1 FX = X NTD)
@@ -58,11 +96,21 @@ const FX_RATES = {
   GBP: { symbol: '£', perUnitNtd: 41.0 },
 };
 
+const SORT_LABELS = {
+  'rnk/dc': 'Best match',
+  'prc/ac': 'Price ↑',
+  'prc/dc': 'Price ↓',
+  'new/dc': 'Newest',
+};
+
 const STORAGE_KEYS = {
   saved: 'pchome_en_saved_v1',
   vault: 'pchome_en_vault_v1',
   currency: 'pchome_en_currency_v1',
+  recent: 'pchome_en_recent_v1',
 };
+
+const MAX_RECENT = 8;
 
 const state = {
   query: '',
@@ -75,13 +123,24 @@ const state = {
   totalPage: 0,
   totalRows: 0,
   showZh: false,
-  currency: localStorage.getItem(STORAGE_KEYS.currency) || 'USD',
+  currency: safeGet(STORAGE_KEYS.currency) || 'USD',
   items: [],
   saved: loadJson(STORAGE_KEYS.saved, []),
   vault: loadJson(STORAGE_KEYS.vault, {}),
+  recent: loadJson(STORAGE_KEYS.recent, []),
   trDirection: 'zh-en',
   lastTrResult: '',
+  glossaryCat: 'all',
+  searchToken: 0,
 };
+
+function safeGet(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
 
 function loadJson(key, fallback) {
   try {
@@ -101,12 +160,16 @@ function saveJson(key, value) {
 }
 
 function escapeHtml(str) {
-  return String(str || '')
+  return String(str ?? '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+function formatNtd(n) {
+  return `NT$${Number(n || 0).toLocaleString('en-US')}`;
 }
 
 function formatFx(ntd) {
@@ -116,66 +179,217 @@ function formatFx(ntd) {
   return `≈ ${symbol}${converted.toFixed(converted >= 100 ? 0 : 2)} ${state.currency}`;
 }
 
-let toastTimer = null;
-function showToast(msg) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.classList.remove('hidden');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.add('hidden'), 2200);
+function discountPct(item) {
+  if (!item.originPrice || !(item.originPrice > item.price)) return 0;
+  const pct = Math.round((1 - item.price / item.originPrice) * 100);
+  return pct >= 1 ? pct : 0;
 }
 
-async function copyText(text, label = 'Copied') {
-  if (!text) return showToast('Nothing to copy yet');
+const $ = (id) => document.getElementById(id);
+
+// --- Toast ---
+let toastTimer = null;
+function showToast(msg, { ok = true } = {}) {
+  const el = $('toast');
+  $('toast-msg').textContent = msg;
+  el.classList.toggle('toast--plain', !ok);
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2000);
+}
+
+// --- Copy with inline button feedback ---
+function copyButtonHtml(label = 'Copy', extraClass = '') {
+  return `<button type="button" class="copy-btn ${extraClass}"><span class="copy-ico">${icon('copy')}</span><span class="copy-label">${escapeHtml(label)}</span></button>`;
+}
+
+function flashCopied(btn) {
+  if (!btn) return;
+  const labelEl = btn.querySelector('.copy-label');
+  const icoEl = btn.querySelector('.copy-ico');
+  if (!btn.dataset.label && labelEl) btn.dataset.label = labelEl.textContent;
+  btn.classList.add('copied');
+  if (labelEl) labelEl.textContent = 'Copied';
+  if (icoEl) icoEl.innerHTML = icon('check');
+  clearTimeout(btn._copyTimer);
+  btn._copyTimer = setTimeout(() => {
+    btn.classList.remove('copied');
+    if (labelEl) labelEl.textContent = btn.dataset.label || 'Copy';
+    if (icoEl) icoEl.innerHTML = icon('copy');
+  }, 1600);
+}
+
+async function copyText(text, label = 'Text', btn = null) {
+  if (!text) {
+    showToast('Nothing to copy yet', { ok: false });
+    return false;
+  }
+  let ok = false;
   try {
     await navigator.clipboard.writeText(text);
-    showToast(`${label} copied`);
+    ok = true;
   } catch {
     const ta = document.createElement('textarea');
     ta.value = text;
+    ta.setAttribute('readonly', '');
     ta.style.position = 'fixed';
     ta.style.opacity = '0';
+    ta.style.fontSize = '16px';
     document.body.appendChild(ta);
     ta.select();
-    document.execCommand('copy');
+    try {
+      ok = document.execCommand('copy');
+    } catch {
+      ok = false;
+    }
     ta.remove();
-    showToast(`${label} copied`);
   }
+  if (ok) {
+    flashCopied(btn);
+    showToast(`${label} copied`);
+    if (navigator.vibrate) navigator.vibrate(8);
+  } else {
+    showToast('Copy failed — long-press to copy', { ok: false });
+  }
+  return ok;
 }
 
 // --- Tabs ---
 function switchTab(tabName) {
+  const current = document.querySelector('.tab-panel.active');
+  const isSame = current && current.id === `tab-${tabName}`;
   document.querySelectorAll('.tab-panel').forEach((p) => {
     p.classList.toggle('active', p.id === `tab-${tabName}`);
   });
   document.querySelectorAll('.tab-btn').forEach((b) => {
-    b.classList.toggle('active', b.dataset.tab === tabName);
+    const active = b.dataset.tab === tabName;
+    b.classList.toggle('active', active);
+    if (active) b.setAttribute('aria-current', 'page');
+    else b.removeAttribute('aria-current');
   });
   if (tabName === 'saved') renderSaved();
+  // iOS behaviour: re-tapping the active tab scrolls to top; switching tabs starts at top.
+  window.scrollTo({ top: 0, behavior: isSame ? 'smooth' : 'auto' });
+}
+
+// --- Home / recent searches ---
+function addRecent(q, raw) {
+  const key = q.toLowerCase();
+  state.recent = [{ q, raw: Boolean(raw) }, ...state.recent.filter((r) => r && r.q && r.q.toLowerCase() !== key)].slice(0, MAX_RECENT);
+  saveJson(STORAGE_KEYS.recent, state.recent);
+}
+
+function renderRecent() {
+  const wrap = $('recent-wrap');
+  const list = $('recent-list');
+  const items = state.recent.filter((r) => r && r.q);
+  wrap.classList.toggle('hidden', !items.length);
+  list.innerHTML = '';
+  for (const r of items) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'recent-chip';
+    btn.innerHTML = `${icon('clock', 'recent-ico')}<span ${r.raw ? 'lang="zh-Hant"' : ''}>${escapeHtml(r.q)}</span>${r.raw ? '<span class="recent-tag">中</span>' : ''}`;
+    btn.addEventListener('click', () => startSearch(r.q, { raw: r.raw }));
+    list.appendChild(btn);
+  }
+}
+
+function showHome() {
+  state.searchToken += 1; // cancel any in-flight search rendering
+  state.query = '';
+  state.items = [];
+  state.totalPage = 0;
+  state.totalRows = 0;
+  $('results-grid').innerHTML = '';
+  $('results-grid').removeAttribute('aria-busy');
+  $('query-banner').classList.add('hidden');
+  $('search-status').classList.add('hidden');
+  $('pagination-wrap').classList.add('hidden');
+  $('home-suggestions').classList.remove('hidden');
+  renderRecent();
+}
+
+function startSearch(q, { raw = false } = {}) {
+  const input = $('search-input');
+  input.value = q;
+  $('search-clear').classList.toggle('hidden', !q);
+  input.blur();
+  state.query = q;
+  state.rawZh = raw;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  runSearch();
 }
 
 // --- Search & Results ---
+function renderSkeletons(container, count = 6) {
+  container.setAttribute('aria-busy', 'true');
+  container.innerHTML = Array.from(
+    { length: count },
+    (_, i) => `
+      <div class="product-card skeleton" aria-hidden="true" style="--i:${i}">
+        <div class="product-img-wrap"><div class="sk sk-img"></div></div>
+        <div class="product-info">
+          <div class="sk sk-line"></div>
+          <div class="sk sk-line sk-w70"></div>
+          <div class="sk sk-price"></div>
+        </div>
+      </div>`
+  ).join('');
+}
+
+function setStatus(kind, title, sub = '', action = null) {
+  const statusEl = $('search-status');
+  const ico = kind === 'error' ? 'alert' : 'search';
+  statusEl.className = `status-box status-box--${kind}`;
+  statusEl.innerHTML = `
+    <span class="empty-ico">${icon(ico)}</span>
+    <p class="empty-title">${escapeHtml(title)}</p>
+    ${sub ? `<p class="empty-sub">${escapeHtml(sub)}</p>` : ''}
+    ${action ? `<button type="button" class="btn-secondary" id="status-action">${escapeHtml(action.label)}</button>` : ''}
+  `;
+  if (action) statusEl.querySelector('#status-action').addEventListener('click', action.onClick);
+}
+
+function setLoadMoreLoading(loading) {
+  const btn = $('load-more-btn');
+  btn.disabled = loading;
+  btn.classList.toggle('is-loading', loading);
+  if (loading) {
+    btn.innerHTML = '<span class="spinner" aria-hidden="true"></span>Loading…';
+  } else if (state.page < state.totalPage) {
+    btn.innerHTML = `Load more <span class="btn-meta">Page ${state.page + 1} of ${state.totalPage}</span>`;
+  } else {
+    btn.textContent = 'Load more results';
+  }
+}
+
 async function runSearch({ append = false } = {}) {
   const q = state.query.trim();
   if (!q) return;
 
-  const statusEl = document.getElementById('search-status');
-  const suggestionsEl = document.getElementById('home-suggestions');
-  const gridEl = document.getElementById('results-grid');
-  const paginationEl = document.getElementById('pagination-wrap');
-  const loadMoreBtn = document.getElementById('load-more-btn');
+  const token = ++state.searchToken;
+  const statusEl = $('search-status');
+  const gridEl = $('results-grid');
+  const paginationEl = $('pagination-wrap');
+  const banner = $('query-banner');
 
-  suggestionsEl.classList.add('hidden');
+  $('home-suggestions').classList.add('hidden');
+  closeZhEditor();
+
   if (!append) {
     state.page = 1;
     state.items = [];
-    gridEl.innerHTML = '';
     paginationEl.classList.add('hidden');
-    statusEl.textContent = 'Searching PChome 24h & translating results...';
-    statusEl.classList.remove('hidden');
+    statusEl.classList.add('hidden');
+    renderSkeletons(gridEl);
+    // Show the banner immediately in a "translating" state
+    banner.classList.remove('hidden');
+    banner.classList.add('is-loading');
+    $('zh-query-display').textContent = q;
+    $('result-count-badge').innerHTML = '<span class="spinner spinner--sm" aria-hidden="true"></span>Translating';
   } else {
-    loadMoreBtn.disabled = true;
-    loadMoreBtn.textContent = 'Loading...';
+    setLoadMoreLoading(true);
   }
 
   const params = new URLSearchParams({
@@ -190,412 +404,765 @@ async function runSearch({ append = false } = {}) {
 
   try {
     const res = await fetch(`/api/search?${params.toString()}`);
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Search failed');
+    const data = await res.json().catch(() => ({}));
+    if (token !== state.searchToken) return; // a newer search superseded this one
+    if (!res.ok) throw new Error(data.error || `Search failed (${res.status})`);
 
+    const newItems = data.items || [];
     state.totalRows = data.totalRows || 0;
     state.totalPage = data.totalPage || 0;
-    state.items = append ? [...state.items, ...(data.items || [])] : data.items || [];
+    state.items = append ? [...state.items, ...newItems] : newItems;
 
-    const banner = document.getElementById('query-banner');
-    document.getElementById('zh-query-display').textContent = data.zhQuery || q;
-    document.getElementById('result-count-badge').textContent = `${state.totalRows.toLocaleString()} items`;
-    banner.classList.remove('hidden');
+    if (!append) addRecent(q, state.rawZh);
+
+    banner.classList.remove('is-loading');
+    $('zh-query-display').textContent = data.zhQuery || q;
+    $('result-count-badge').textContent = `${state.totalRows.toLocaleString('en-US')} ${state.totalRows === 1 ? 'item' : 'items'}`;
     banner.dataset.zhQuery = data.zhQuery || q;
 
     if (!state.items.length) {
-      statusEl.textContent = `No results found on PChome (${state.scope === '24h' ? '24h Only' : 'All'}). Try switching off "24h Only" or editing the Chinese query.`;
-      statusEl.classList.remove('hidden');
+      gridEl.innerHTML = '';
+      gridEl.removeAttribute('aria-busy');
+      const in24 = state.scope === '24h';
+      setStatus(
+        'empty',
+        'No matches on PChome',
+        in24
+          ? 'Nothing in 24h fast-ship for this term. Try all sellers, or edit the Chinese query above.'
+          : 'Try a simpler English term, or edit the Chinese query above.',
+        in24 ? { label: 'Search all of PChome', onClick: () => setScope('all') } : null
+      );
       paginationEl.classList.add('hidden');
     } else {
       statusEl.classList.add('hidden');
-      renderProductGrid(gridEl, state.items);
-      if (state.page < state.totalPage) {
-        paginationEl.classList.remove('hidden');
-        loadMoreBtn.disabled = false;
-        loadMoreBtn.textContent = `Load More (Page ${state.page} of ${state.totalPage})`;
+      if (append) {
+        appendProducts(gridEl, newItems);
       } else {
-        paginationEl.classList.add('hidden');
+        renderProductGrid(gridEl, state.items);
       }
+      gridEl.removeAttribute('aria-busy');
+      paginationEl.classList.toggle('hidden', !(state.page < state.totalPage));
+      setLoadMoreLoading(false);
     }
   } catch (err) {
-    statusEl.textContent = `Error: ${err.message}`;
-    statusEl.classList.remove('hidden');
-    loadMoreBtn.disabled = false;
-    loadMoreBtn.textContent = 'Load More Results';
+    if (token !== state.searchToken) return;
+    banner.classList.remove('is-loading');
+    $('result-count-badge').textContent = '';
+    if (append) {
+      state.page = Math.max(1, state.page - 1);
+      setLoadMoreLoading(false);
+      showToast(`Couldn't load more: ${err.message}`, { ok: false });
+    } else {
+      gridEl.innerHTML = '';
+      gridEl.removeAttribute('aria-busy');
+      setStatus('error', 'Something went wrong', err.message || 'Please check your connection and try again.', {
+        label: 'Try again',
+        onClick: () => runSearch(),
+      });
+    }
   }
+}
+
+function setScope(scope) {
+  state.scope = scope;
+  const btn = $('toggle-24h');
+  const is24 = scope === '24h';
+  btn.classList.toggle('active', is24);
+  btn.setAttribute('aria-pressed', String(is24));
+  if (state.query) runSearch();
 }
 
 function isSaved(id) {
   return state.saved.some((item) => item.id === id);
 }
 
-function toggleSave(item) {
+function toggleSave(item, sourceBtn = null) {
   const exists = isSaved(item.id);
   if (exists) {
     state.saved = state.saved.filter((x) => x.id !== item.id);
-    showToast('Removed from Saved');
+    showToast('Removed from Saved', { ok: false });
   } else {
     state.saved = [item, ...state.saved];
-    showToast('Saved to wishlist');
+    showToast('Saved to your list');
   }
   saveJson(STORAGE_KEYS.saved, state.saved);
   updateSavedBadge();
-  renderProductGrid(document.getElementById('results-grid'), state.items);
-  if (document.getElementById('tab-saved').classList.contains('active')) {
-    renderSaved();
+  syncHearts();
+  if (sourceBtn && !exists) {
+    sourceBtn.classList.remove('pop');
+    void sourceBtn.offsetWidth;
+    sourceBtn.classList.add('pop');
   }
+  if ($('tab-saved').classList.contains('active')) renderSaved();
+}
+
+function syncHearts() {
+  document.querySelectorAll('.product-card[data-id]').forEach((card) => {
+    const saved = isSaved(card.dataset.id);
+    const btn = card.querySelector('.save-heart');
+    if (!btn) return;
+    btn.classList.toggle('saved', saved);
+    btn.setAttribute('aria-pressed', String(saved));
+    btn.setAttribute('aria-label', saved ? 'Remove from saved' : 'Save item');
+  });
 }
 
 function updateSavedBadge() {
-  const pill = document.getElementById('saved-count-pill');
-  if (state.saved.length > 0) {
-    pill.textContent = String(state.saved.length);
+  const pill = $('saved-count-pill');
+  const n = state.saved.length;
+  if (n > 0) {
+    pill.textContent = n > 99 ? '99+' : String(n);
     pill.classList.remove('hidden');
   } else {
     pill.classList.add('hidden');
   }
 }
 
+function buildProductCard(item) {
+  const card = document.createElement('article');
+  card.className = 'product-card';
+  card.dataset.id = item.id;
+  card.tabIndex = 0;
+  card.setAttribute('role', 'button');
+  card.setAttribute('aria-label', `${item.nameEn}, ${formatNtd(item.price)}`);
+  const saved = isSaved(item.id);
+  const fx = formatFx(item.price);
+  const off = discountPct(item);
+  const hasRating = typeof item.rating === 'number' && item.rating > 0;
+
+  card.innerHTML = `
+    <div class="product-img-wrap">
+      <img src="${escapeHtml(item.image)}" alt="" loading="lazy" decoding="async" />
+      <div class="img-badges">
+        ${item.is24h ? `<span class="badge-24h">${icon('bolt')}24h</span>` : ''}
+      </div>
+      ${off ? `<span class="badge-off">−${off}%</span>` : ''}
+      <button type="button" class="save-heart ${saved ? 'saved' : ''}" aria-pressed="${saved}" aria-label="${saved ? 'Remove from saved' : 'Save item'}">
+        ${icon('heart')}
+      </button>
+    </div>
+    <div class="product-info">
+      <h3 class="product-title">${escapeHtml(item.nameEn)}</h3>
+      ${state.showZh ? `<p class="product-zh" lang="zh-Hant">${escapeHtml(item.nameZh)}</p>` : ''}
+      ${hasRating ? `<div class="product-rating">${icon('star')}<span>${item.rating.toFixed(1)}</span><span class="muted">(${Number(item.reviewCount || 0).toLocaleString('en-US')})</span></div>` : ''}
+      <div class="product-price-block">
+        <div class="product-price-row">
+          <span class="price-nt"><span class="cur">NT$</span>${Number(item.price || 0).toLocaleString('en-US')}</span>
+          ${off ? `<span class="price-orig">${formatNtd(item.originPrice)}</span>` : ''}
+        </div>
+        ${fx ? `<span class="price-fx">${escapeHtml(fx)}</span>` : ''}
+      </div>
+    </div>
+  `;
+
+  const img = card.querySelector('img');
+  img.addEventListener('error', () => card.querySelector('.product-img-wrap').classList.add('img-missing'), { once: true });
+  img.addEventListener('load', () => img.classList.add('loaded'), { once: true });
+  if (img.complete && img.naturalWidth) img.classList.add('loaded');
+
+  card.querySelector('.save-heart').addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleSave(item, e.currentTarget);
+  });
+  card.addEventListener('click', () => openProductSheet(item));
+  card.addEventListener('keydown', (e) => {
+    if (e.target !== card) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openProductSheet(item);
+    }
+  });
+  return card;
+}
+
 function renderProductGrid(container, items) {
   container.innerHTML = '';
+  appendProducts(container, items);
+}
+
+function appendProducts(container, items) {
   const frag = document.createDocumentFragment();
-
-  for (const item of items) {
-    const card = document.createElement('article');
-    card.className = 'product-card';
-    const saved = isSaved(item.id);
-    const fx = formatFx(item.price);
-    const showOrig = item.originPrice > item.price;
-
-    card.innerHTML = `
-      <div class="product-img-wrap">
-        <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.nameEn)}" loading="lazy" />
-        ${item.is24h ? '<span class="badge-24h">24h</span>' : ''}
-        <button type="button" class="save-heart ${saved ? 'saved' : ''}" aria-label="${saved ? 'Remove bookmark' : 'Save item'}">
-          <svg viewBox="0 0 24 24" fill="${saved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </button>
-      </div>
-      <div class="product-info">
-        <h3 class="product-title">${escapeHtml(item.nameEn)}</h3>
-        ${state.showZh ? `<p class="product-zh">${escapeHtml(item.nameZh)}</p>` : ''}
-        ${item.rating ? `<div class="product-rating">★ ${item.rating.toFixed(1)} (${item.reviewCount})</div>` : ''}
-        <div class="product-price-row">
-          <span class="price-nt">NT$${item.price.toLocaleString()}</span>
-          ${showOrig ? `<span class="price-orig">NT$${item.originPrice.toLocaleString()}</span>` : ''}
-          ${fx ? `<span class="price-fx">${escapeHtml(fx)}</span>` : ''}
-        </div>
-      </div>
-    `;
-
-    card.querySelector('.save-heart').addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleSave(item);
-    });
-    card.addEventListener('click', () => openProductSheet(item));
-    frag.appendChild(card);
-  }
-
+  for (const item of items) frag.appendChild(buildProductCard(item));
   container.appendChild(frag);
 }
 
 // --- Product Detail Bottom Sheet ---
+let sheetCloseTimer = null;
+let sheetLastFocus = null;
+let sheetItemId = null;
+
+function stockHtml(kind, text) {
+  return `<span class="stock-pill ${kind}"><span class="stock-dot"></span>${text}</span>`;
+}
+
 async function openProductSheet(item) {
-  const backdrop = document.getElementById('sheet-backdrop');
-  const body = document.getElementById('sheet-body');
+  const backdrop = $('sheet-backdrop');
+  const body = $('sheet-body');
+  const footer = $('sheet-footer');
   const fx = formatFx(item.price);
-  const saved = isSaved(item.id);
+  const off = discountPct(item);
+  const saving = off ? item.originPrice - item.price : 0;
+  const hasRating = typeof item.rating === 'number' && item.rating > 0;
+  sheetItemId = item.id;
 
   body.innerHTML = `
-    <div class="sheet-hero">
+    <div class="sheet-media">
       <img class="sheet-img" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.nameEn)}" />
-      <div>
-        <h2 class="sheet-title" id="sheet-title">${escapeHtml(item.nameEn)}</h2>
-        <div class="sheet-price">NT$${item.price.toLocaleString()}</div>
-        ${fx ? `<div class="muted" style="font-size:13px;">${escapeHtml(fx)}</div>` : ''}
-        <div id="sheet-stock"><span class="stock-pill low">Checking live stock...</span></div>
+    </div>
+
+    <div class="sheet-head">
+      <div class="sheet-tags">
+        ${item.is24h ? `<span class="badge-24h badge-24h--inline">${icon('bolt')}24h fast ship</span>` : ''}
+        <span id="sheet-stock">${stockHtml('checking', 'Checking stock…')}</span>
+      </div>
+      <h2 class="sheet-title" id="sheet-title">${escapeHtml(item.nameEn)}</h2>
+      ${hasRating ? `<div class="product-rating product-rating--lg">${icon('star')}<span>${item.rating.toFixed(1)}</span><span class="muted">· ${Number(item.reviewCount || 0).toLocaleString('en-US')} reviews</span></div>` : ''}
+      <div class="sheet-price-card">
+        <div class="sheet-price-main">
+          <span class="sheet-price"><span class="cur">NT$</span>${Number(item.price || 0).toLocaleString('en-US')}</span>
+          ${off ? `<span class="off-badge">−${off}%</span>` : ''}
+        </div>
+        <div class="sheet-price-sub">
+          ${off ? `<span class="price-orig">${formatNtd(item.originPrice)}</span><span class="save-amt">You save ${formatNtd(saving)}</span>` : ''}
+          ${fx ? `<span class="sheet-fx">${escapeHtml(fx)}</span>` : ''}
+        </div>
       </div>
     </div>
+
+    <section class="sheet-block sheet-block--zh">
+      <div class="sheet-block-head">
+        <span class="sheet-block-label">Original listing <span lang="zh-Hant">中文標題</span></span>
+        ${copyButtonHtml('Copy 中文', 'copy-btn--sm')}
+      </div>
+      <p class="sheet-zh" lang="zh-Hant">${escapeHtml(item.nameZh)}</p>
+    </section>
 
     ${item.describeEn ? `
-      <div class="sheet-block">
-        <div class="sheet-block-label">Highlights (Translated)</div>
-        <div>${escapeHtml(item.describeEn)}</div>
-      </div>
+      <section class="sheet-block">
+        <div class="sheet-block-head"><span class="sheet-block-label">Highlights · translated</span></div>
+        <p class="sheet-desc">${escapeHtml(item.describeEn)}</p>
+      </section>
     ` : ''}
 
-    <div class="sheet-block">
-      <div class="sheet-block-label" style="display:flex;justify-content:space-between;align-items:center;">
-        <span>Original Chinese Title</span>
-        <button type="button" id="sheet-copy-zh" class="link-btn">Copy 中文</button>
-      </div>
-      <div>${escapeHtml(item.nameZh)}</div>
-    </div>
-
-    <div class="sheet-block">
-      <div class="sheet-block-label">Buying on iPhone Tip</div>
-      <div>Tap <strong>加入購物車</strong> (Add to Cart) on PChome, then switch back to the <strong>Vault</strong> tab here to copy your Chinese address &amp; 載具 barcode in one tap.</div>
-    </div>
-
-    <div class="sheet-actions">
-      <a class="btn-primary" href="${escapeHtml(item.url)}" target="_blank" rel="noopener">Open on PChome 24h &rarr;</a>
-      <button type="button" id="sheet-save-btn" class="btn-secondary">${saved ? 'Saved ♥' : 'Save'}</button>
-    </div>
+    <section class="sheet-tip">
+      <span class="sheet-tip-ico">${icon('bulb')}</span>
+      <p>On PChome tap <strong lang="zh-Hant">加入購物車</strong> (Add to Cart), then flip back to the <strong>Vault</strong> tab to copy your Chinese address &amp; 載具 barcode.</p>
+    </section>
   `;
 
-  backdrop.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
+  footer.innerHTML = `
+    <button type="button" id="sheet-save-btn" class="sheet-save" aria-pressed="false">${icon('heart')}<span>Save</span></button>
+    <a class="btn-primary sheet-open" href="${escapeHtml(item.url)}" target="_blank" rel="noopener">Open on PChome ${icon('external', 'btn-ico')}</a>
+  `;
 
-  body.querySelector('#sheet-copy-zh').addEventListener('click', () => copyText(item.nameZh, 'Chinese title'));
-  body.querySelector('#sheet-save-btn').addEventListener('click', (e) => {
-    toggleSave(item);
-    e.currentTarget.textContent = isSaved(item.id) ? 'Saved ♥' : 'Save';
+  const setSaveBtn = () => {
+    const btn = $('sheet-save-btn');
+    if (!btn) return;
+    const s = isSaved(item.id);
+    btn.classList.toggle('saved', s);
+    btn.setAttribute('aria-pressed', String(s));
+    btn.querySelector('span').textContent = s ? 'Saved' : 'Save';
+  };
+  setSaveBtn();
+
+  const sheetImg = body.querySelector('.sheet-img');
+  sheetImg.addEventListener('error', () => body.querySelector('.sheet-media').classList.add('img-missing'), { once: true });
+
+  body.querySelector('.sheet-block--zh .copy-btn').addEventListener('click', (e) => copyText(item.nameZh, 'Chinese title', e.currentTarget));
+  footer.querySelector('#sheet-save-btn').addEventListener('click', (e) => {
+    toggleSave(item, e.currentTarget);
+    setSaveBtn();
   });
 
+  // Animate in
+  clearTimeout(sheetCloseTimer);
+  sheetLastFocus = document.activeElement;
+  const card = $('sheet-card');
+  card.style.transform = '';
+  body.scrollTop = 0;
+  backdrop.classList.remove('hidden');
+  void backdrop.offsetHeight; // force reflow so the transition runs
+  backdrop.classList.add('open');
+  document.documentElement.classList.add('sheet-locked');
+  setTimeout(() => $('sheet-x').focus({ preventScroll: true }), 60);
+
   // Fetch real-time stock from PChome product API
+  const requestedId = item.id;
   try {
     const res = await fetch(`/api/product/${encodeURIComponent(item.id)}`);
     if (!res.ok) throw new Error('unavailable');
     const detail = await res.json();
-    const stockEl = document.getElementById('sheet-stock');
-    if (!stockEl) return;
+    const stockEl = $('sheet-stock');
+    if (!stockEl || sheetItemId !== requestedId) return;
     if (!detail.inStock) {
-      stockEl.innerHTML = '<span class="stock-pill out">Out of Stock (補貨中)</span>';
+      stockEl.innerHTML = stockHtml('out', 'Out of stock · <span lang="zh-Hant">補貨中</span>');
     } else if (typeof detail.qty === 'number' && detail.qty <= 5) {
-      stockEl.innerHTML = `<span class="stock-pill low">Low Stock &mdash; ${detail.qty} left</span>`;
+      stockEl.innerHTML = stockHtml('low', `Only ${detail.qty} left`);
     } else {
-      stockEl.innerHTML = `<span class="stock-pill in">In Stock${detail.is24h ? ' · 24h Fast Ship' : ''}</span>`;
+      stockEl.innerHTML = stockHtml('in', 'In stock');
     }
   } catch {
-    const stockEl = document.getElementById('sheet-stock');
-    if (stockEl) stockEl.innerHTML = '<span class="stock-pill in">Check live stock on PChome</span>';
+    const stockEl = $('sheet-stock');
+    if (stockEl && sheetItemId === requestedId) stockEl.innerHTML = stockHtml('unknown', 'Check stock on PChome');
   }
 }
 
 function closeProductSheet() {
-  document.getElementById('sheet-backdrop').classList.add('hidden');
-  document.body.style.overflow = '';
+  const backdrop = $('sheet-backdrop');
+  if (backdrop.classList.contains('hidden')) return;
+  backdrop.classList.remove('open');
+  backdrop.classList.remove('dragging');
+  $('sheet-card').style.transform = '';
+  document.documentElement.classList.remove('sheet-locked');
+  sheetItemId = null;
+  clearTimeout(sheetCloseTimer);
+  sheetCloseTimer = setTimeout(() => backdrop.classList.add('hidden'), 320);
+  if (sheetLastFocus && typeof sheetLastFocus.focus === 'function') {
+    sheetLastFocus.focus({ preventScroll: true });
+  }
+}
+
+function initSheetDrag() {
+  const handle = $('sheet-close-bar');
+  const card = $('sheet-card');
+  const backdrop = $('sheet-backdrop');
+  let startY = 0;
+  let dy = 0;
+  let dragging = false;
+
+  handle.addEventListener('touchstart', (e) => {
+    if (e.target.closest('.sheet-x')) return;
+    dragging = true;
+    startY = e.touches[0].clientY;
+    dy = 0;
+    backdrop.classList.add('dragging');
+  }, { passive: true });
+
+  handle.addEventListener('touchmove', (e) => {
+    if (!dragging) return;
+    dy = Math.max(0, e.touches[0].clientY - startY);
+    card.style.transform = `translateY(${dy}px)`;
+  }, { passive: true });
+
+  const end = () => {
+    if (!dragging) return;
+    dragging = false;
+    backdrop.classList.remove('dragging');
+    if (dy > 110) {
+      closeProductSheet();
+    } else {
+      card.style.transform = '';
+    }
+  };
+  handle.addEventListener('touchend', end);
+  handle.addEventListener('touchcancel', end);
 }
 
 // --- Saved Tab ---
 function renderSaved() {
-  const grid = document.getElementById('saved-grid');
-  const empty = document.getElementById('saved-empty');
-  const clearBtn = document.getElementById('clear-saved-btn');
+  const grid = $('saved-grid');
+  const empty = $('saved-empty');
+  const clearBtn = $('clear-saved-btn');
+  const summary = $('saved-summary');
 
   if (!state.saved.length) {
     grid.innerHTML = '';
     empty.classList.remove('hidden');
     clearBtn.classList.add('hidden');
+    summary.classList.add('hidden');
     return;
   }
   empty.classList.add('hidden');
   clearBtn.classList.remove('hidden');
+
+  const total = state.saved.reduce((sum, it) => sum + (Number(it.price) || 0), 0);
+  const fx = formatFx(total);
+  summary.innerHTML = `
+    <div>
+      <span class="summary-label">${state.saved.length} ${state.saved.length === 1 ? 'item' : 'items'} · one of each</span>
+      <span class="summary-total">${formatNtd(total)}</span>
+    </div>
+    ${fx ? `<span class="summary-fx">${escapeHtml(fx)}</span>` : ''}
+  `;
+  summary.classList.remove('hidden');
   renderProductGrid(grid, state.saved);
 }
 
 // --- Checkout Vault ---
+function vaultFilledCount() {
+  return VAULT_FIELDS.filter((f) => (state.vault[f.key] || '').trim()).length;
+}
+
+function renderVaultProgress() {
+  const el = $('vault-progress');
+  const total = VAULT_FIELDS.length;
+  const filled = vaultFilledCount();
+  const pct = filled / total;
+  const C = 2 * Math.PI * 18;
+  const done = filled === total;
+  el.classList.toggle('is-complete', done);
+  el.innerHTML = `
+    <div class="ring" aria-hidden="true">
+      <svg viewBox="0 0 44 44">
+        <circle class="ring-track" cx="22" cy="22" r="18"/>
+        <circle class="ring-fill" cx="22" cy="22" r="18" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${(C * (1 - pct)).toFixed(2)}"/>
+      </svg>
+      <span class="ring-num">${done ? icon('check') : `${filled}/${total}`}</span>
+    </div>
+    <div class="vp-text">
+      <strong>${done ? 'Checkout ready' : filled ? `${filled} of ${total} details saved` : 'Set up your checkout details'}</strong>
+      <span>${icon('lock', 'vp-lock')}Stored only on this device — never uploaded.</span>
+    </div>
+  `;
+}
+
 function renderVault() {
-  const container = document.getElementById('vault-fields');
+  const container = $('vault-fields');
   container.innerHTML = '';
+  const fieldsByKey = Object.fromEntries(VAULT_FIELDS.map((f) => [f.key, f]));
 
-  for (const field of VAULT_FIELDS) {
-    const card = document.createElement('div');
-    card.className = 'vault-card';
-    const value = state.vault[field.key] || '';
-    card.innerHTML = `
-      <div class="vault-label-row">
-        <label class="vault-label" for="vault-${field.key}">${escapeHtml(field.label)}</label>
-        <span class="vault-zh">${escapeHtml(field.zh)}</span>
+  for (const group of VAULT_GROUPS) {
+    const section = document.createElement('section');
+    section.className = 'vault-group';
+    section.innerHTML = `
+      <div class="vault-group-head">
+        <span class="vg-ico vg-ico--${group.id}">${icon(group.icon)}</span>
+        <h3 class="group-title">${escapeHtml(group.title)} <span class="group-zh" lang="zh-Hant">${escapeHtml(group.zh)}</span></h3>
       </div>
-      <div class="vault-input-row">
-        <input id="vault-${field.key}" type="text" value="${escapeHtml(value)}" placeholder="${escapeHtml(field.placeholder)}" />
-        <button type="button" class="copy-btn">Copy</button>
-      </div>
+      <div class="vault-card"></div>
     `;
-    const input = card.querySelector('input');
-    input.addEventListener('input', () => {
-      state.vault[field.key] = input.value;
-      saveJson(STORAGE_KEYS.vault, state.vault);
-    });
-    card.querySelector('.copy-btn').addEventListener('click', () => {
-      copyText(input.value.trim(), field.label);
-    });
-    container.appendChild(card);
-  }
+    const cardEl = section.querySelector('.vault-card');
 
-  const phraseWrap = document.getElementById('delivery-phrases');
+    for (const key of group.fields) {
+      const field = fieldsByKey[key];
+      const value = state.vault[field.key] || '';
+      const row = document.createElement('div');
+      row.className = 'vault-row';
+      row.classList.toggle('filled', Boolean(value.trim()));
+      row.innerHTML = `
+        <div class="vault-label-row">
+          <label class="vault-label" for="vault-${field.key}">
+            <span class="vault-check" aria-hidden="true">${icon('check')}</span>${escapeHtml(field.label)}
+          </label>
+          <span class="vault-zh" lang="zh-Hant">${escapeHtml(field.zh)}</span>
+        </div>
+        <div class="vault-input-row">
+          <input id="vault-${field.key}" type="${field.type || 'text'}" value="${escapeHtml(value)}" placeholder="${escapeHtml(field.placeholder)}"
+            ${field.inputmode ? `inputmode="${field.inputmode}"` : ''}
+            ${field.autocomplete ? `autocomplete="${field.autocomplete}"` : 'autocomplete="off"'}
+            ${field.autocapitalize ? `autocapitalize="${field.autocapitalize}"` : ''}
+            autocorrect="off" spellcheck="false" />
+          ${copyButtonHtml('Copy')}
+        </div>
+      `;
+      const input = row.querySelector('input');
+      input.addEventListener('input', () => {
+        state.vault[field.key] = input.value;
+        saveJson(STORAGE_KEYS.vault, state.vault);
+        row.classList.toggle('filled', Boolean(input.value.trim()));
+        renderVaultProgress();
+      });
+      row.querySelector('.copy-btn').addEventListener('click', (e) => {
+        copyText(input.value.trim(), field.label, e.currentTarget);
+      });
+      cardEl.appendChild(row);
+    }
+    container.appendChild(section);
+  }
+  renderVaultProgress();
+
+  const phraseWrap = $('delivery-phrases');
   phraseWrap.innerHTML = '';
   for (const p of DELIVERY_PHRASES) {
     const card = document.createElement('div');
     card.className = 'phrase-card';
     card.innerHTML = `
-      <div>
+      <div class="phrase-text">
         <div class="phrase-en">${escapeHtml(p.en)}</div>
-        <div class="phrase-zh">${escapeHtml(p.zh)}</div>
+        <div class="phrase-zh" lang="zh-Hant">${escapeHtml(p.zh)}</div>
       </div>
-      <button type="button" class="copy-btn" style="padding:8px 12px;">Copy</button>
+      ${copyButtonHtml('Copy')}
     `;
-    card.querySelector('button').addEventListener('click', () => copyText(p.zh, 'Chinese note'));
+    card.querySelector('.copy-btn').addEventListener('click', (e) => copyText(p.zh, 'Chinese note', e.currentTarget));
     phraseWrap.appendChild(card);
   }
 }
 
 // --- Guide & Translator ---
+function renderGlossaryCats() {
+  const wrap = $('glossary-cats');
+  wrap.innerHTML = GLOSSARY_CATS.map((c) => {
+    const count = c.id === 'all' ? GLOSSARY_ITEMS.length : GLOSSARY_ITEMS.filter((g) => g.cat === c.id).length;
+    const active = state.glossaryCat === c.id;
+    return `<button type="button" role="tab" class="cat-chip ${active ? 'active' : ''}" aria-selected="${active}" data-cat="${c.id}">${escapeHtml(c.label)}<span class="cat-count">${count}</span></button>`;
+  }).join('');
+  wrap.querySelectorAll('.cat-chip').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      state.glossaryCat = btn.dataset.cat;
+      renderGlossaryCats();
+      renderGlossary($('glossary-filter').value);
+    });
+  });
+}
+
 function renderGlossary(filterText = '') {
-  const list = document.getElementById('glossary-list');
+  const list = $('glossary-list');
   const needle = filterText.trim().toLowerCase();
+  const catLabel = Object.fromEntries(GLOSSARY_CATS.map((c) => [c.id, c.label]));
   const filtered = GLOSSARY_ITEMS.filter(
     (g) =>
-      !needle ||
-      g.zh.toLowerCase().includes(needle) ||
-      g.en.toLowerCase().includes(needle) ||
-      g.tip.toLowerCase().includes(needle)
+      (state.glossaryCat === 'all' || g.cat === state.glossaryCat) &&
+      (!needle ||
+        g.zh.toLowerCase().includes(needle) ||
+        g.en.toLowerCase().includes(needle) ||
+        g.tip.toLowerCase().includes(needle))
   );
+
+  if (!filtered.length) {
+    list.innerHTML = `<div class="glossary-empty">No terms match “${escapeHtml(filterText.trim())}”.</div>`;
+    return;
+  }
+
   list.innerHTML = filtered
     .map(
-      (g) => `
-      <div class="glossary-item">
+      (g, i) => `
+      <article class="glossary-item">
         <div class="glossary-top">
-          <span class="glossary-zh">${escapeHtml(g.zh)}</span>
-          <span class="glossary-en">${escapeHtml(g.en)}</span>
+          <span class="glossary-tag glossary-tag--${g.cat}">${escapeHtml(catLabel[g.cat] || g.cat)}</span>
+          <button type="button" class="copy-btn copy-btn--icon" data-idx="${GLOSSARY_ITEMS.indexOf(g)}" aria-label="Copy ${escapeHtml(g.zh)}"><span class="copy-ico">${icon('copy')}</span><span class="copy-label visually-hidden">Copy</span></button>
         </div>
+        <p class="glossary-zh" lang="zh-Hant">${escapeHtml(g.zh)}</p>
+        <p class="glossary-en">${escapeHtml(g.en)}</p>
         <p class="glossary-tip">${escapeHtml(g.tip)}</p>
-      </div>
+      </article>
     `
     )
     .join('');
+
+  list.querySelectorAll('.copy-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const g = GLOSSARY_ITEMS[Number(btn.dataset.idx)];
+      if (g) copyText(g.zh, 'Chinese term', e.currentTarget);
+    });
+  });
+}
+
+function applyTrDirection() {
+  const zhEn = state.trDirection === 'zh-en';
+  $('tr-from').textContent = zhEn ? '繁體中文' : 'English';
+  $('tr-to').textContent = zhEn ? 'English' : '繁體中文';
+  $('tr-out-lang').textContent = zhEn ? 'English' : '繁體中文';
+  $('tr-input').placeholder = zhEn
+    ? 'Paste Chinese text from PChome or an SMS…'
+    : 'Type an English note for the delivery driver…';
+  $('tr-input').setAttribute('lang', zhEn ? 'zh-Hant' : 'en');
+  $('tr-out-text').setAttribute('lang', zhEn ? 'en' : 'zh-Hant');
 }
 
 async function runQuickTranslate() {
-  const input = document.getElementById('tr-input').value.trim();
-  const outEl = document.getElementById('tr-output');
-  const copyBtn = document.getElementById('tr-copy');
-  if (!input) return;
+  const input = $('tr-input').value.trim();
+  const outEl = $('tr-output');
+  const outText = $('tr-out-text');
+  const copyBtn = $('tr-copy');
+  const trBtn = $('tr-btn');
+  if (!input) {
+    $('tr-input').focus();
+    return;
+  }
 
-  outEl.textContent = 'Translating...';
-  outEl.classList.remove('hidden');
+  outEl.classList.remove('hidden', 'is-error');
+  outEl.classList.add('is-loading');
+  outText.innerHTML = '<span class="sk sk-line"></span><span class="sk sk-line sk-w70"></span>';
   copyBtn.classList.add('hidden');
+  trBtn.disabled = true;
+  trBtn.innerHTML = '<span class="spinner spinner--light" aria-hidden="true"></span>Translating…';
 
   const to = state.trDirection === 'en-zh' ? 'zh-TW' : 'en';
   try {
     const res = await fetch(`/api/translate?to=${encodeURIComponent(to)}&text=${encodeURIComponent(input)}`);
-    const data = await res.json();
+    const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || 'Translation failed');
     state.lastTrResult = data.translated || '';
-    outEl.textContent = state.lastTrResult;
+    outText.textContent = state.lastTrResult;
     copyBtn.classList.remove('hidden');
   } catch (err) {
-    outEl.textContent = `Error: ${err.message}`;
+    outEl.classList.add('is-error');
+    outText.textContent = `Couldn't translate: ${err.message}`;
+  } finally {
+    outEl.classList.remove('is-loading');
+    trBtn.disabled = false;
+    trBtn.textContent = 'Translate';
   }
+}
+
+// --- Inline 中文 query editor ---
+function openZhEditor() {
+  const banner = $('query-banner');
+  const input = $('zh-edit-input');
+  input.value = banner.dataset.zhQuery || state.query;
+  $('qb-view').classList.add('hidden');
+  $('zh-edit-form').classList.remove('hidden');
+  input.focus();
+  input.select();
+}
+
+function closeZhEditor() {
+  $('zh-edit-form').classList.add('hidden');
+  $('qb-view').classList.remove('hidden');
+}
+
+function updatePriceChip() {
+  const label = $('price-chip-label');
+  const btn = $('toggle-price');
+  const { minPrice: min, maxPrice: max } = state;
+  const fmt = (v) => Number(v).toLocaleString('en-US');
+  let text = 'NT$ range';
+  if (min && max) text = `NT$${fmt(min)}–${fmt(max)}`;
+  else if (min) text = `NT$${fmt(min)}+`;
+  else if (max) text = `Under NT$${fmt(max)}`;
+  label.textContent = text;
+  btn.classList.toggle('has-value', Boolean(min || max));
+}
+
+function updateSelectLabels() {
+  $('sort-label').textContent = SORT_LABELS[state.sort] || 'Sort';
+  $('currency-label').textContent = state.currency === 'NONE' ? 'NT$' : state.currency;
 }
 
 // --- Init ---
 function init() {
   // Quick categories
-  const quickEl = document.getElementById('quick-categories');
+  const quickEl = $('quick-categories');
   for (const cat of QUICK_CATEGORIES) {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'quick-card';
-    btn.innerHTML = `<span class="qc-en">${escapeHtml(cat.en)}</span><span class="qc-zh">${escapeHtml(cat.zh)}</span>`;
-    btn.addEventListener('click', () => {
-      document.getElementById('search-input').value = cat.en;
-      document.getElementById('search-clear').classList.remove('hidden');
-      state.query = cat.en;
-      state.rawZh = false;
-      runSearch();
-    });
+    btn.style.setProperty('--hue', cat.hue);
+    btn.innerHTML = `
+      <span class="qc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${cat.icon}</svg></span>
+      <span class="qc-text">
+        <span class="qc-en">${escapeHtml(cat.en)}</span>
+        <span class="qc-zh" lang="zh-Hant">${escapeHtml(cat.zh)}</span>
+      </span>`;
+    btn.addEventListener('click', () => startSearch(cat.en));
     quickEl.appendChild(btn);
   }
+  renderRecent();
+  $('clear-recent').addEventListener('click', () => {
+    state.recent = [];
+    saveJson(STORAGE_KEYS.recent, []);
+    renderRecent();
+  });
 
   // Currency select
-  const currencySel = document.getElementById('currency-select');
-  currencySel.value = state.currency;
+  const currencySel = $('currency-select');
+  currencySel.value = FX_RATES[state.currency] || state.currency === 'NONE' ? state.currency : 'USD';
+  state.currency = currencySel.value;
   currencySel.addEventListener('change', () => {
     state.currency = currencySel.value;
-    localStorage.setItem(STORAGE_KEYS.currency, state.currency);
-    if (state.items.length) renderProductGrid(document.getElementById('results-grid'), state.items);
-    if (document.getElementById('tab-saved').classList.contains('active')) renderSaved();
+    try {
+      localStorage.setItem(STORAGE_KEYS.currency, state.currency);
+    } catch {
+      // ignore
+    }
+    updateSelectLabels();
+    if (state.items.length) renderProductGrid($('results-grid'), state.items);
+    if ($('tab-saved').classList.contains('active')) renderSaved();
   });
 
   // Search form
-  const searchInput = document.getElementById('search-input');
-  const searchClear = document.getElementById('search-clear');
+  const searchInput = $('search-input');
+  const searchClear = $('search-clear');
   searchInput.addEventListener('input', () => {
     searchClear.classList.toggle('hidden', !searchInput.value);
   });
   searchClear.addEventListener('click', () => {
     searchInput.value = '';
     searchClear.classList.add('hidden');
+    if (state.query) showHome();
     searchInput.focus();
   });
-  document.getElementById('search-form').addEventListener('submit', (e) => {
+  $('search-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const val = searchInput.value.trim();
-    if (!val) return;
-    searchInput.blur();
-    state.query = val;
-    state.rawZh = false;
-    runSearch();
+    if (!val) {
+      searchInput.focus();
+      return;
+    }
+    startSearch(val);
   });
 
   // Filters
-  const toggle24h = document.getElementById('toggle-24h');
-  toggle24h.addEventListener('click', () => {
-    state.scope = state.scope === '24h' ? 'all' : '24h';
-    const is24 = state.scope === '24h';
-    toggle24h.classList.toggle('active', is24);
-    toggle24h.setAttribute('aria-pressed', String(is24));
-    if (state.query) runSearch();
-  });
+  $('toggle-24h').addEventListener('click', () => setScope(state.scope === '24h' ? 'all' : '24h'));
 
-  const sortSelect = document.getElementById('sort-select');
+  const sortSelect = $('sort-select');
   sortSelect.addEventListener('change', () => {
     state.sort = sortSelect.value;
+    updateSelectLabels();
     if (state.query) runSearch();
   });
 
-  const priceBar = document.getElementById('price-filter-bar');
-  const togglePriceBtn = document.getElementById('toggle-price');
+  const priceBar = $('price-filter-bar');
+  const togglePriceBtn = $('toggle-price');
   togglePriceBtn.addEventListener('click', () => {
     priceBar.classList.toggle('hidden');
-    togglePriceBtn.classList.toggle('active', !priceBar.classList.contains('hidden'));
+    const open = !priceBar.classList.contains('hidden');
+    togglePriceBtn.classList.toggle('active', open);
+    togglePriceBtn.setAttribute('aria-expanded', String(open));
+    if (open) $('min-price').focus({ preventScroll: true });
   });
-  document.getElementById('apply-price').addEventListener('click', () => {
-    state.minPrice = document.getElementById('min-price').value.trim();
-    state.maxPrice = document.getElementById('max-price').value.trim();
+  const applyPrice = () => {
+    state.minPrice = $('min-price').value.trim();
+    state.maxPrice = $('max-price').value.trim();
+    updatePriceChip();
+    priceBar.classList.add('hidden');
+    togglePriceBtn.classList.remove('active');
+    togglePriceBtn.setAttribute('aria-expanded', 'false');
+    document.activeElement?.blur?.();
     if (state.query) runSearch();
-  });
-  document.getElementById('clear-price').addEventListener('click', () => {
-    document.getElementById('min-price').value = '';
-    document.getElementById('max-price').value = '';
+  };
+  $('apply-price').addEventListener('click', applyPrice);
+  ['min-price', 'max-price'].forEach((id) =>
+    $(id).addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        applyPrice();
+      }
+    })
+  );
+  $('clear-price').addEventListener('click', () => {
+    $('min-price').value = '';
+    $('max-price').value = '';
     state.minPrice = '';
     state.maxPrice = '';
+    updatePriceChip();
     if (state.query) runSearch();
   });
 
-  const toggleZhBtn = document.getElementById('toggle-zh');
+  const toggleZhBtn = $('toggle-zh');
   toggleZhBtn.addEventListener('click', () => {
     state.showZh = !state.showZh;
     toggleZhBtn.classList.toggle('active', state.showZh);
     toggleZhBtn.setAttribute('aria-pressed', String(state.showZh));
-    if (state.items.length) renderProductGrid(document.getElementById('results-grid'), state.items);
+    if (state.items.length) renderProductGrid($('results-grid'), state.items);
+    if ($('tab-saved').classList.contains('active')) renderSaved();
   });
 
-  document.getElementById('edit-zh-query').addEventListener('click', () => {
-    const currentZh = document.getElementById('query-banner').dataset.zhQuery || state.query;
-    const edited = window.prompt('Edit the Traditional Chinese query sent to PChome:', currentZh);
-    if (edited && edited.trim()) {
-      searchInput.value = edited.trim();
-      searchClear.classList.remove('hidden');
-      state.query = edited.trim();
-      state.rawZh = true;
-      runSearch();
-    }
+  // Edit 中文 (inline editor)
+  $('edit-zh-query').addEventListener('click', openZhEditor);
+  $('zh-edit-cancel').addEventListener('click', closeZhEditor);
+  $('zh-edit-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const edited = $('zh-edit-input').value.trim();
+    if (!edited) return;
+    closeZhEditor();
+    startSearch(edited, { raw: true });
+  });
+  $('zh-edit-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeZhEditor();
   });
 
-  document.getElementById('load-more-btn').addEventListener('click', () => {
+  $('load-more-btn').addEventListener('click', () => {
     if (state.page < state.totalPage) {
       state.page += 1;
       runSearch({ append: true });
@@ -603,12 +1170,16 @@ function init() {
   });
 
   // Saved clear
-  document.getElementById('clear-saved-btn').addEventListener('click', () => {
+  $('clear-saved-btn').addEventListener('click', () => {
     if (!window.confirm('Remove all saved items?')) return;
     state.saved = [];
     saveJson(STORAGE_KEYS.saved, []);
     updateSavedBadge();
+    syncHearts();
     renderSaved();
+  });
+  document.querySelectorAll('[data-goto]').forEach((btn) => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.goto));
   });
 
   // Tabs
@@ -617,37 +1188,66 @@ function init() {
   });
 
   // Sheet close
-  document.getElementById('sheet-backdrop').addEventListener('click', (e) => {
+  $('sheet-backdrop').addEventListener('click', (e) => {
     if (e.target.id === 'sheet-backdrop') closeProductSheet();
   });
-  document.getElementById('sheet-close-bar').addEventListener('click', closeProductSheet);
+  $('sheet-x').addEventListener('click', closeProductSheet);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeProductSheet();
+  });
+  initSheetDrag();
 
   // Translator
-  const btnZhEn = document.getElementById('tr-dir-zh-en');
-  const btnEnZh = document.getElementById('tr-dir-en-zh');
-  const trInput = document.getElementById('tr-input');
-  btnZhEn.addEventListener('click', () => {
-    state.trDirection = 'zh-en';
-    btnZhEn.classList.add('active');
-    btnEnZh.classList.remove('active');
-    trInput.placeholder = 'Paste Chinese text from PChome or an SMS...';
+  const trInput = $('tr-input');
+  const trClear = $('tr-clear');
+  applyTrDirection();
+  $('tr-swap').addEventListener('click', (e) => {
+    state.trDirection = state.trDirection === 'zh-en' ? 'en-zh' : 'zh-en';
+    e.currentTarget.classList.toggle('flipped');
+    // Like iOS Translate: swapping moves the result into the input
+    if (state.lastTrResult && !$('tr-output').classList.contains('hidden')) {
+      trInput.value = state.lastTrResult;
+      state.lastTrResult = '';
+      $('tr-output').classList.add('hidden');
+      trClear.classList.toggle('hidden', !trInput.value);
+    }
+    applyTrDirection();
   });
-  btnEnZh.addEventListener('click', () => {
-    state.trDirection = 'en-zh';
-    btnEnZh.classList.add('active');
-    btnZhEn.classList.remove('active');
-    trInput.placeholder = 'Type an English note for the delivery driver...';
+  trInput.addEventListener('input', () => trClear.classList.toggle('hidden', !trInput.value));
+  trInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      runQuickTranslate();
+    }
   });
-  document.getElementById('tr-btn').addEventListener('click', runQuickTranslate);
-  document.getElementById('tr-copy').addEventListener('click', () => copyText(state.lastTrResult, 'Translation'));
+  trClear.addEventListener('click', () => {
+    trInput.value = '';
+    trClear.classList.add('hidden');
+    $('tr-output').classList.add('hidden');
+    state.lastTrResult = '';
+    trInput.focus();
+  });
+  $('tr-btn').addEventListener('click', runQuickTranslate);
+  const trCopy = $('tr-copy');
+  trCopy.querySelector('.copy-ico').innerHTML = icon('copy');
+  trCopy.addEventListener('click', (e) => copyText(state.lastTrResult, 'Translation', e.currentTarget));
 
   // Glossary filter
-  document.getElementById('glossary-filter').addEventListener('input', (e) => {
+  $('glossary-filter').addEventListener('input', (e) => {
     renderGlossary(e.target.value);
   });
 
+  // Header elevation on scroll
+  const topBar = $('top-bar');
+  const onScroll = () => topBar.classList.toggle('scrolled', window.scrollY > 4);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  updateSelectLabels();
+  updatePriceChip();
   updateSavedBadge();
   renderVault();
+  renderGlossaryCats();
   renderGlossary();
 
   if ('serviceWorker' in navigator) {

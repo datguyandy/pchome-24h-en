@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pchome-en-v1';
+const CACHE_NAME = 'pchome-en-v2';
 const SHELL_FILES = ['/', '/index.html', '/styles.css', '/app.js', '/manifest.json', '/icon.svg'];
 
 self.addEventListener('install', (event) => {
