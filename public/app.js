@@ -108,6 +108,7 @@ const STORAGE_KEYS = {
   vault: 'pchome_en_vault_v1',
   currency: 'pchome_en_currency_v1',
   recent: 'pchome_en_recent_v1',
+  layout: 'pchome_en_layout_v1',
 };
 
 const MAX_RECENT = 8;
@@ -124,6 +125,7 @@ const state = {
   totalRows: 0,
   showZh: false,
   currency: safeGet(STORAGE_KEYS.currency) || 'USD',
+  layout: safeGet(STORAGE_KEYS.layout) === 'mobile' ? 'mobile' : 'desktop',
   items: [],
   saved: loadJson(STORAGE_KEYS.saved, []),
   vault: loadJson(STORAGE_KEYS.vault, {}),
@@ -508,13 +510,28 @@ function syncHearts() {
 }
 
 function updateSavedBadge() {
-  const pill = $('saved-count-pill');
   const n = state.saved.length;
-  if (n > 0) {
-    pill.textContent = n > 99 ? '99+' : String(n);
-    pill.classList.remove('hidden');
-  } else {
-    pill.classList.add('hidden');
+  document.querySelectorAll('[data-saved-count]').forEach((pill) => {
+    if (n > 0) {
+      pill.textContent = n > 99 ? '99+' : String(n);
+      pill.classList.remove('hidden');
+    } else {
+      pill.classList.add('hidden');
+    }
+  });
+}
+
+function applyLayoutMode() {
+  const isDesktop = state.layout === 'desktop';
+  document.documentElement.classList.toggle('layout-desktop', isDesktop);
+  const btn = $('layout-toggle');
+  const label = $('layout-toggle-label');
+  if (btn) {
+    btn.setAttribute('aria-pressed', String(isDesktop));
+    btn.title = isDesktop ? 'Switch to Mobile view' : 'Switch to Desktop view';
+  }
+  if (label) {
+    label.textContent = isDesktop ? 'Mobile view' : 'Desktop view';
   }
 }
 
@@ -1187,15 +1204,45 @@ function init() {
     btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
 
-  // Sheet close
+  // Sheet close & desktop "/" shortcut to focus search
   $('sheet-backdrop').addEventListener('click', (e) => {
     if (e.target.id === 'sheet-backdrop') closeProductSheet();
   });
   $('sheet-x').addEventListener('click', closeProductSheet);
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeProductSheet();
+    if (e.key === 'Escape') {
+      closeProductSheet();
+      return;
+    }
+    if (
+      e.key === '/' &&
+      !e.metaKey &&
+      !e.ctrlKey &&
+      !e.altKey &&
+      !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)
+    ) {
+      e.preventDefault();
+      switchTab('shop');
+      $('search-input').focus();
+    }
   });
   initSheetDrag();
+
+  // Desktop / Mobile layout toggle (shown on screens >= 900px)
+  applyLayoutMode();
+  const layoutToggle = $('layout-toggle');
+  if (layoutToggle) {
+    layoutToggle.addEventListener('click', () => {
+      state.layout = state.layout === 'desktop' ? 'mobile' : 'desktop';
+      try {
+        localStorage.setItem(STORAGE_KEYS.layout, state.layout);
+      } catch {
+        // ignore
+      }
+      applyLayoutMode();
+      showToast(state.layout === 'desktop' ? 'Desktop layout enabled' : 'Mobile layout enabled');
+    });
+  }
 
   // Translator
   const trInput = $('tr-input');
