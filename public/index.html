@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="PChome EN" />
+  <meta name="theme-color" content="#dc2626" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0f141e" media="(prefers-color-scheme: dark)" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/icon.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <title>PChome 24h EN — Taiwan Shopping Helper</title>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top Header -->
+    <header class="top-bar">
+      <div class="brand-row">
+        <div class="brand">
+          <span class="brand-badge">24h</span>
+          <div>
+            <h1 class="brand-title">PChome EN</h1>
+            <p class="brand-sub">Taiwan 24h shopping in English</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <label class="currency-wrap" aria-label="Secondary currency">
+            <select id="currency-select" class="pill-select">
+              <option value="NONE">NT$ only</option>
+              <option value="USD">NT$ + USD</option>
+              <option value="AUD">NT$ + AUD</option>
+              <option value="EUR">NT$ + EUR</option>
+              <option value="GBP">NT$ + GBP</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Views -->
+    <main class="main-content">
+      <!-- TAB 1: SHOP / SEARCH -->
+      <section id="tab-shop" class="tab-panel active" aria-label="Search PChome 24h">
+        <form id="search-form" class="search-box" role="search">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            id="search-input"
+            type="search"
+            inputmode="search"
+            enterkeyhint="search"
+            autocomplete="off"
+            placeholder="Search in English (e.g. dehumidifier, GaN charger)..."
+          />
+          <button type="button" id="search-clear" class="icon-btn hidden" aria-label="Clear search">&times;</button>
+          <button type="submit" class="search-submit">Go</button>
+        </form>
+
+        <!-- Controls row -->
+        <div class="controls-bar">
+          <button type="button" id="toggle-24h" class="filter-chip active" aria-pressed="true">
+            <span class="dot"></span>24h Only
+          </button>
+          <select id="sort-select" class="filter-chip select-chip" aria-label="Sort results">
+            <option value="rnk/dc">Sort: Best Match</option>
+            <option value="prc/ac">Price: Low to High</option>
+            <option value="prc/dc">Price: High to Low</option>
+            <option value="new/dc">Sort: Newest</option>
+          </select>
+          <button type="button" id="toggle-price" class="filter-chip">
+            NT$ Filter
+          </button>
+          <button type="button" id="toggle-zh" class="filter-chip" aria-pressed="false">
+            Show 中文
+          </button>
+        </div>
+
+        <!-- Collapsible price filter -->
+        <div id="price-filter-bar" class="price-filter hidden">
+          <input id="min-price" type="number" inputmode="numeric" placeholder="Min NT$" min="0" />
+          <span class="dash">&ndash;</span>
+          <input id="max-price" type="number" inputmode="numeric" placeholder="Max NT$" min="0" />
+          <button type="button" id="apply-price" class="btn-small">Apply</button>
+          <button type="button" id="clear-price" class="btn-ghost-small">Reset</button>
+        </div>
+
+        <!-- Translation banner (shows the Taiwan Chinese term actually sent to PChome) -->
+        <div id="query-banner" class="query-banner hidden">
+          <div class="query-banner-text">
+            <span class="muted">PChome query:</span>
+            <strong id="zh-query-display"></strong>
+            <span id="result-count-badge" class="count-pill"></span>
+          </div>
+          <button type="button" id="edit-zh-query" class="link-btn">Edit 中文</button>
+        </div>
+
+        <!-- Quick Expat Starter Categories (shown before first search) -->
+        <div id="home-suggestions" class="suggestions-wrap">
+          <h2 class="section-heading">Popular Taiwan Essentials</h2>
+          <p class="section-sub">Tap anything below &mdash; translated into Taiwan Traditional Chinese automatically.</p>
+          <div class="quick-grid" id="quick-categories"></div>
+
+          <div class="tip-card">
+            <strong>iPhone Tip:</strong> Tap Safari's <strong>Share</strong> button &rarr; <strong>Add to Home Screen</strong> to use this like a native app. When you tap through to PChome to check out, use the <strong>Vault</strong> tab to copy your Chinese address &amp; 載具 barcode in one tap.
+          </div>
+        </div>
+
+        <!-- Loading / Error / Results -->
+        <div id="search-status" class="status-box hidden"></div>
+        <div id="results-grid" class="results-grid"></div>
+        <div id="pagination-wrap" class="pagination-wrap hidden">
+          <button type="button" id="load-more-btn" class="btn-secondary full-width">Load More Results</button>
+        </div>
+      </section>
+
+      <!-- TAB 2: SAVED / WISHLIST -->
+      <section id="tab-saved" class="tab-panel" aria-label="Saved items">
+        <div class="panel-header">
+          <div>
+            <h2 class="section-heading">Saved Items</h2>
+            <p class="section-sub">Compare items in English before checking out on PChome.</p>
+          </div>
+          <button type="button" id="clear-saved-btn" class="link-btn danger hidden">Clear All</button>
+        </div>
+        <div id="saved-empty" class="empty-state">
+          <p class="empty-title">No saved items yet</p>
+          <p class="empty-sub">Tap the heart on any product to bookmark it here.</p>
+        </div>
+        <div id="saved-grid" class="results-grid"></div>
+      </section>
+
+      <!-- TAB 3: CHECKOUT VAULT (LOCAL ONLY) -->
+      <section id="tab-vault" class="tab-panel" aria-label="Taiwan Checkout Vault">
+        <div class="panel-header">
+          <div>
+            <h2 class="section-heading">Checkout Vault</h2>
+            <p class="section-sub">Saved only on this device. One-tap copy when pasting into PChome checkout.</p>
+          </div>
+        </div>
+
+        <div class="vault-list" id="vault-fields"></div>
+
+        <h3 class="sub-heading">One-Tap Delivery Phrases (備註)</h3>
+        <p class="section-sub">Paste into PChome's delivery note field (收件備註) so couriers know what to do.</p>
+        <div class="phrase-list" id="delivery-phrases"></div>
+      </section>
+
+      <!-- TAB 4: GUIDE & TRANSLATE -->
+      <section id="tab-guide" class="tab-panel" aria-label="Checkout Guide and Translator">
+        <div class="panel-header">
+          <div>
+            <h2 class="section-heading">Quick Translator</h2>
+            <p class="section-sub">Paste a Chinese PChome error/SMS or write a note for a courier.</p>
+          </div>
+        </div>
+
+        <div class="translator-card">
+          <div class="translator-dir">
+            <button type="button" id="tr-dir-zh-en" class="dir-btn active">繁體中文 &rarr; English</button>
+            <button type="button" id="tr-dir-en-zh" class="dir-btn">English &rarr; 繁體中文</button>
+          </div>
+          <textarea id="tr-input" rows="3" placeholder="Paste Chinese text from PChome or an SMS..."></textarea>
+          <div class="translator-actions">
+            <button type="button" id="tr-btn" class="btn-primary">Translate</button>
+            <button type="button" id="tr-copy" class="btn-secondary hidden">Copy Result</button>
+          </div>
+          <div id="tr-output" class="tr-output hidden"></div>
+        </div>
+
+        <div class="userscript-card">
+          <div class="userscript-head">
+            <h3>iOS Safari Checkout Overlay</h3>
+            <span class="badge-soft">Optional</span>
+          </div>
+          <p class="section-sub">
+            Want English labels directly on PChome's cart &amp; checkout buttons in Safari? Install the free <strong>Userscripts</strong> app from the iOS App Store, then load our script:
+          </p>
+          <div class="userscript-actions">
+            <a href="/userscript/pchome-en-ios.user.js" target="_blank" rel="noopener" class="btn-secondary">View / Save Userscript</a>
+          </div>
+        </div>
+
+        <h2 class="section-heading" style="margin-top: 22px;">PChome Checkout Cheat Sheet</h2>
+        <input id="glossary-filter" type="search" class="glossary-search" placeholder="Filter terms (e.g. invoice, 7-11, return, card)..." />
+        <div id="glossary-list" class="glossary-list"></div>
+      </section>
+    </main>
+
+    <!-- Bottom iOS Tab Bar -->
+    <nav class="tab-bar" aria-label="Main navigation">
+      <button type="button" class="tab-btn active" data-tab="shop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span>Shop</span>
+      </button>
+      <button type="button" class="tab-btn" data-tab="saved">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span>Saved <em id="saved-count-pill" class="nav-count hidden">0</em></span>
+      </button>
+      <button type="button" class="tab-btn" data-tab="vault">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="13" y2="13"/></svg>
+        <span>Vault</span>
+      </button>
+      <button type="button" class="tab-btn" data-tab="guide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span>Guide</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Product Detail Bottom Sheet -->
+  <div id="sheet-backdrop" class="sheet-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div class="sheet-card">
+      <div class="sheet-handle-wrap" id="sheet-close-bar">
+        <span class="sheet-handle"></span>
+      </div>
+      <div class="sheet-body" id="sheet-body"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

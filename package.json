@@ -1,0 +1,15 @@
+{
+  "name": "pchome-24h-en",
+  "version": "1.0.0",
+  "description": "English mobile PWA shopping helper + iOS Safari userscript for PChome 24h Taiwan",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "npx wrangler dev",
+    "deploy": "npx wrangler deploy"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
